@@ -74,8 +74,7 @@ const main = strategy => {
   console.log(`total sessions: ${sessions}`);
   console.log(`average turns lived: ${turnsSum/sessions}`);
   console.log(`average max bank roll: ${Math.round(maxBankRollSum/sessions)}`);
-  console.log(`abolute max bank roll: ${Math.round(absoluteMax)}`);
-  console.log('');
+  console.log(`absolute max bank roll: ${Math.round(absoluteMax)}`);
 };
 
 const strategies = [
@@ -84,6 +83,9 @@ const strategies = [
   noMultiplier,
 ];
 
-strategies.forEach(strategy => {
+strategies.forEach((strategy, index) => {
   main(strategy);
+  if (index < strategies.length - 1) {
+    console.log('');
+  }
 });
