@@ -10,7 +10,7 @@ const {get: getBetState} = require('./betState');
 
 const config = {
   startingBankRoll: 400,
-  playerSessions: 10000,
+  playerSessions: 100,
 };
 
 const main = strategy => {
