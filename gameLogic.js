@@ -1,10 +1,6 @@
-const seedrandom = require('seedrandom');
 const oddsPayouts = require('./oddsPayouts');
 const {PASS_LINE, ODDS} = require('./betState');
-
-function randomBetween(min, max) {
-  return Math.floor(seedrandom()() * (max - min) + min);
-}
+const { randomBetween } = require('./randomUtil');
 
 const getDiceRoll = () => {
   const lower = 1;
