@@ -12,27 +12,32 @@ class Player {
     this.maxBankRoll = bankRoll;
   }
 
-  _basebet(amount, betStateType, betState) {
+  _baseBet(amount, betStateType, betState) {
     this.bankRoll -= amount;
-
     betState[betStateType] += amount;
-
     return betState;
   }
 
   betComeout(amount, betState) {
-    this._basebet(amount, PASS_LINE, betState);
+    this._baseBet(amount, PASS_LINE, betState);
   }
 
   betOdds(amount, betState) {
-    this._basebet(amount, ODDS, betState);
+    this._baseBet(amount, ODDS, betState);
   }
 
   bet({betState, gameState}) {
     this.maxBankRoll = Math.max(this.bankRoll, this.maxBankRoll);
 
+    let amount;
+
     if (gameState.isComeout()) {
-      const amount = this.strategy.getBetFromProgressionCount(this.progressionCount);
+      amount = this.strategy.getBetFromProgressionCount(this.progressionCount);
+
+      if (this.strategy.parlayNaturals && this.winOnNatural) {
+        amount *= 2;
+        this.winOnNatural = false;
+      }
 
       if (amount > this.bankRoll) {
         throw new Error('player is broke!');
@@ -40,7 +45,7 @@ class Player {
 
       this.betComeout(amount, betState);
     } else if (this.strategy.oddsFactor && !betState.hasOdds()) {
-      let amount = this.strategy.getBetFromProgressionCount(this.progressionCount);
+      amount = this.strategy.getBetFromProgressionCount(this.progressionCount);
       amount = amount * this.strategy.oddsFactor;
 
       if (amount < this.bankRoll) {

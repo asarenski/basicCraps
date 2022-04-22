@@ -20,4 +20,5 @@ module.exports = {
   name: 'dice doctors progressive',
   getBetFromProgressionCount,
   oddsFactor: 1,
+  parlayNaturals: true,
 };

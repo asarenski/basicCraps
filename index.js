@@ -11,7 +11,7 @@ const {get: getBetState} = require('./betState');
 const startingBankRoll = 400;
 const getNewGame = () => {
   const player = new Player({
-    strategy: noMultiplier,
+    strategy: diceDoctorProgressive,
     bankRoll: startingBankRoll,
   });
   const gameState = new GameState();

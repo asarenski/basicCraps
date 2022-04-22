@@ -1,12 +1,16 @@
-const _ = require('lodash');
+const seedrandom = require('seedrandom');
 const oddsPayouts = require('./oddsPayouts');
 const {PASS_LINE, ODDS} = require('./betState');
+
+function randomBetween(min, max) {
+  return Math.floor(seedrandom()() * (max - min) + min);
+}
 
 const getDiceRoll = () => {
   const lower = 1;
   const upper = 6;
-  const first = _.random(lower, upper, false);
-  const second = _.random(lower, upper, false);
+  const first = randomBetween(lower, upper);
+  const second = randomBetween(lower, upper);
 
   return first+second;
 };
@@ -33,6 +37,7 @@ const roll = ({
   if (gameState.isComeout()) {
     if (naturalRolls.includes(nextRoll)) {
       player.win = true;
+      player.winOnNatural = true;
     } else if (crapsRolls.includes(nextRoll)) {
       player.win = false;
     } else {
