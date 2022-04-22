@@ -55,8 +55,10 @@ const main = strategy => {
         }
       }
     } catch(e) {
-      // console.log(e.message);
-      // console.log(`player lasted ${turnCount} turns`);
+      const {PLAYER_IS_BROKE_MESSAGE} = Player;
+      if (e.message !== PLAYER_IS_BROKE_MESSAGE) {
+        throw new Error(e);
+      }
 
       turnsSum += turnCount;
       maxBankRollSum += args.player.maxBankRoll;

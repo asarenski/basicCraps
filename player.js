@@ -1,9 +1,10 @@
 const {PASS_LINE, ODDS} = require('./betState');
-const {COMEOUT} = require('./gameState');
 
 const PROGRESSION_COUNT_START = 1;
 
 class Player {
+  static PLAYER_IS_BROKE_MESSAGE = 'player is broke!';
+
   constructor({strategy, bankRoll = 400}) {
     this.progressionCount = PROGRESSION_COUNT_START;
     this.strategy = strategy;
@@ -40,7 +41,7 @@ class Player {
       }
 
       if (amount > this.bankRoll) {
-        throw new Error('player is broke!');
+        throw new Error(Player.PLAYER_IS_BROKE_MESSAGE);
       }
 
       this.betComeout(amount, betState);
